@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-10-05
+  Last mod.: 2024-10-18
 */
 
 /*
@@ -47,31 +47,6 @@ namespace me_ManagedMemory
     private:
       me_MemorySegment::TMemorySegment DataSeg;
   };
-
-  namespace Freetown
-  {
-    // Reserve block of memory. Zero after allocation
-    TBool Reserve(
-      me_MemorySegment::TMemorySegment * MemSeg,
-      TUint_2 Size
-    );
-
-    // Release block of memory. Zero before release
-    void Release(
-      me_MemorySegment::TMemorySegment * MemSeg
-    );
-
-    // Fill memory span with zero byte
-    void ZeroMem(
-      me_MemorySegment::TMemorySegment MemSeg
-    );
-
-    // Copy data to another segment
-    TBool CopyMemTo(
-      me_MemorySegment::TMemorySegment Dest,
-      me_MemorySegment::TMemorySegment Src
-    );
-  }
 }
 
 /*
@@ -80,4 +55,5 @@ namespace me_ManagedMemory
   2024-06-15
   2024-07-06
   2024-10-05
+  2024-10-18 [<] Moved Freetown to [me_MemorySegment]
 */

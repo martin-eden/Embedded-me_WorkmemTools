@@ -2,13 +2,14 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-10-10
+  Last mod.: 2024-10-18
 */
 
 #include "me_ManagedMemory.h"
 
+using namespace me_ManagedMemory;
+
 using
-  me_ManagedMemory::TManagedMemory,
   me_MemorySegment::TMemorySegment;
 
 /*
@@ -53,15 +54,20 @@ TBool TManagedMemory::ResizeTo(
   TUint_2 NewSize
 )
 {
+  using
+    me_MemorySegment::Freetown::Reserve,
+    me_MemorySegment::Freetown::CopyMemTo,
+    me_MemorySegment::Freetown::Release;
+
   TMemorySegment NewSeg;
 
-  if (!Freetown::Reserve(&NewSeg, NewSize))
+  if (!Reserve(&NewSeg, NewSize))
     return false;
 
-  if (!Freetown::CopyMemTo(NewSeg, DataSeg))
+  if (!CopyMemTo(NewSeg, DataSeg))
     return false;
 
-  Freetown::Release(&DataSeg);
+  Release(&DataSeg);
 
   DataSeg = NewSeg;
 
@@ -85,10 +91,13 @@ TBool TManagedMemory::LoadFrom(
   TMemorySegment Src
 )
 {
+  using
+    me_MemorySegment::Freetown::CopyMemTo;
+
   if (!ResizeTo(Src.Size))
     return false;
 
-  if (!Freetown::CopyMemTo(DataSeg, Src))
+  if (!CopyMemTo(DataSeg, Src))
     return false;
 
   return true;
@@ -101,8 +110,11 @@ TBool TManagedMemory::LoadFrom(
   const TChar * Asciiz
 )
 {
+  using
+    me_MemorySegment::Freetown::FromAsciiz;
+
   // Cast ASCIIZ to memseg and load
-  return LoadFrom(me_MemorySegment::Freetown::FromAsciiz(Asciiz));
+  return LoadFrom(FromAsciiz(Asciiz));
 }
 
 /*
@@ -123,4 +135,5 @@ TBool TManagedMemory::LoadFrom(
   2024-07-06
   2024-10-05
   2024-10-07
+  2024-10-18
 */
