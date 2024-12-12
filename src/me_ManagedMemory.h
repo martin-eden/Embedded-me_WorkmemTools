@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-10-18
+  Last mod.: 2024-12-12
 */
 
 /*
@@ -40,7 +40,7 @@ namespace me_ManagedMemory
       // Load from arbitrary span
       TBool LoadFrom(me_MemorySegment::TMemorySegment SrcSeg);
       // Load from ASCIIZ
-      TBool LoadFrom(const TChar * Asciiz);
+      TBool LoadFrom(const TAsciiz Asciiz);
       // Load from our specie
       TBool LoadFrom(TManagedMemory * Src);
 

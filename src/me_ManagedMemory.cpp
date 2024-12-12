@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-10-18
+  Last mod.: 2024-12-12
 */
 
 #include "me_ManagedMemory.h"
@@ -107,7 +107,7 @@ TBool TManagedMemory::LoadFrom(
   Load from ASCIIZ
 */
 TBool TManagedMemory::LoadFrom(
-  const TChar * Asciiz
+  const TAsciiz Asciiz
 )
 {
   using
