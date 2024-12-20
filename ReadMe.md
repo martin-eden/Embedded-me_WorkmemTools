@@ -77,9 +77,9 @@ leave syntax scope.
   * bash
 
 
-## Install
+## Install/remove
 
-Run [Install.sh](Install.sh).
+Easy way is to clone [GetLibs][GetLibs] repo and run it's code.
 
 
 ## Compile
@@ -89,11 +89,6 @@ Zero-warnings compilation:
 ```bash
 arduino-cli compile --fqbn arduino:avr:uno --quiet --warnings all . --build-property compiler.cpp.extra_flags="-std=c++1z"
 ```
-
-## Remove
-
-Run [Remove.sh](Remove.sh).
-
 
 ## See also
 
@@ -105,6 +100,8 @@ Run [Remove.sh](Remove.sh).
 [TManagedMemory]: src/TManagedMemory.cpp
 [Freetown]: src/me_ManagedMemory_Freetown.cpp
 [Example]: examples/me_ManagedMemory/me_ManagedMemory.ino
+
+[GetLibs]: https://github.com/martin-eden/Embedded-Framework-GetLibs
 
 [Embedded]: https://github.com/martin-eden/Embedded_Crafts/tree/master/Parts
 [Repos]: https://github.com/martin-eden/contents
