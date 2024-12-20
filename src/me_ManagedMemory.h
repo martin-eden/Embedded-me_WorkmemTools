@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-12-12
+  Last mod.: 2024-12-20
 */
 
 /*
@@ -13,8 +13,8 @@
 
 #pragma once
 
-#include <me_MemorySegment.h>
 #include <me_BaseTypes.h>
+#include <me_MemorySegment.h>
 
 namespace me_ManagedMemory
 {
@@ -50,10 +50,7 @@ namespace me_ManagedMemory
 }
 
 /*
-  2024-06-02
-  2024-06-04
-  2024-06-15
-  2024-07-06
-  2024-10-05
-  2024-10-18 [<] Moved Freetown to [me_MemorySegment]
+  2024-06 # # #
+  2024-07 #
+  2024-10 # #
 */

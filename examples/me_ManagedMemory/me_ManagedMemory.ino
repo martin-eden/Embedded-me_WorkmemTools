@@ -2,20 +2,19 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-10-18
+  Last mod.: 2024-12-20
 */
 
 #include <me_ManagedMemory.h>
 
 #include <me_BaseTypes.h>
-#include <me_UartSpeeds.h>
+#include <me_Uart.h>
 #include <me_Console.h>
-#include <me_InstallStandardStreams.h>
+#include <me_MemorySegment.h>
 
 void setup()
 {
-  Serial.begin(me_UartSpeeds::Arduino_Normal_Bps);
-  InstallStandardStreams();
+  me_Uart::Init(me_Uart::Speed_115k_Bps);
 
   Console.Print("[me_ManagedMemory] Okay, we are here.");
   Console.Indent();
@@ -30,8 +29,26 @@ void loop()
 
 // --
 
+void PrintWrappings(
+  me_MemorySegment::TMemorySegment Seg
+)
+{
+  Console.Write("(");
+  Console.Write("Addr");
+  Console.Print(Seg.Addr);
+  Console.Write("Size");
+  Console.Print(Seg.Size);
+  Console.Write(")");
+  Console.EndLine();
+}
+
 void RunTest()
 {
+  using
+    me_ManagedMemory::TManagedMemory;
+
+  TManagedMemory Chunk;
+
   Console.Print("");
 
   Console.Print("This library manages heap span.");
@@ -43,32 +60,21 @@ void RunTest()
   Console.Print("is reused.");
   Console.Print("");
 
-  using
-    me_ManagedMemory::TManagedMemory,
-    me_MemorySegment::Freetown::PrintWrappings;
-
-  TManagedMemory Chunk;
-
   PrintWrappings(Chunk.GetData());
-  Console.Print("");
 
   Chunk.LoadFrom("ABC");
   PrintWrappings(Chunk.GetData());
-  Console.Print("");
 
   Chunk.LoadFrom("12345");
   PrintWrappings(Chunk.GetData());
-  Console.Print("");
 
   Chunk.LoadFrom("ab");
   PrintWrappings(Chunk.GetData());
-  Console.Print("");
 }
 
 /*
-  2024-06-02
-  2024-07-06
-  2024-10-05
-  2024-10-09
-  2024-10-18
+  2024-06 #
+  2024-07 #
+  2024-10 # # #
+  2024-12-20
 */

@@ -2,10 +2,10 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-12-12
+  Last mod.: 2024-12-20
 */
 
-#include "me_ManagedMemory.h"
+#include <me_ManagedMemory.h>
 
 using namespace me_ManagedMemory;
 
@@ -129,11 +129,7 @@ TBool TManagedMemory::LoadFrom(
 }
 
 /*
-  2024-06-02
-  2024-06-04
-  2024-06-15
-  2024-07-06
-  2024-10-05
-  2024-10-07
-  2024-10-18
+  2024-06 # # #
+  2024-07 #
+  2024-10 # # #
 */
