@@ -64,8 +64,7 @@ TBool TManagedMemory::ResizeTo(
   if (!Reserve(&NewSeg, NewSize))
     return false;
 
-  if (!CopyMemTo(NewSeg, DataSeg))
-    return false;
+  CopyMemTo(NewSeg, DataSeg);
 
   Release(&DataSeg);
 
@@ -97,8 +96,7 @@ TBool TManagedMemory::LoadFrom(
   if (!ResizeTo(Src.Size))
     return false;
 
-  if (!CopyMemTo(DataSeg, Src))
-    return false;
+  CopyMemTo(DataSeg, Src);
 
   return true;
 }
