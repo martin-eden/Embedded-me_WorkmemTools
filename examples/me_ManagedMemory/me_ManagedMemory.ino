@@ -2,32 +2,14 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-12-20
+  Last mod.: 2025-08-26
 */
 
 #include <me_ManagedMemory.h>
 
 #include <me_BaseTypes.h>
-#include <me_Uart.h>
 #include <me_Console.h>
 #include <me_MemorySegment.h>
-
-void setup()
-{
-  me_Uart::Init(me_Uart::Speed_115k_Bps);
-
-  Console.Print("[me_ManagedMemory] Okay, we are here.");
-  Console.Indent();
-  RunTest();
-  Console.Unindent();
-  Console.Print("[me_ManagedMemory] Done.");
-}
-
-void loop()
-{
-}
-
-// --
 
 void PrintWrappings(
   me_MemorySegment::TMemorySegment Seg
@@ -72,9 +54,22 @@ void RunTest()
   PrintWrappings(Chunk.GetData());
 }
 
+void setup()
+{
+  Console.Init();
+
+  Console.Print("[me_ManagedMemory] test");
+  Console.Indent();
+  RunTest();
+  Console.Unindent();
+  Console.Print("[me_ManagedMemory] Done.");
+}
+
+void loop()
+{
+}
+
 /*
-  2024-06 #
-  2024-07 #
-  2024-10 # # #
-  2024-12-20
+  2024-06 # # # # # #
+  2025-08-26
 */
