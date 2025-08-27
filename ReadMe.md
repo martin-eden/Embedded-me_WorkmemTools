@@ -24,42 +24,22 @@ leave syntax scope.
 ## Sample output
 
 ```
-[me_ManagedMemory] Okay, we are here.
+[me_ManagedMemory] test
 
   This library manages heap span.
 
-  Class manages loading data and resizing. Free functions
-  handle heap memory allocations, zeroing and copying.
+  Class manages loading data and resizing.
 
   In this example we'll use one instance with different
   values. Idea is to demonstrate that memory span for data
   is reused.
 
-  TMemorySegment (
-    Start 00000
-    Size 00000
-    Data ()
-  )
-
-  TMemorySegment (
-    Start 00857
-    Size 00003
-    Data ( 065 066 067 )
-  )
-
-  TMemorySegment (
-    Start 00862
-    Size 00005
-    Data ( 049 050 051 052 053 )
-  )
-
-  TMemorySegment (
-    Start 00857
-    Size 00002
-    Data ( 097 098 )
-  )
-
+  (Addr 00000 Size 00000 )
+  (Addr 00586 Size 00003 )
+  (Addr 00591 Size 00005 )
+  (Addr 00586 Size 00002 )
 [me_ManagedMemory] Done.
+
 ```
 
 ## Code
