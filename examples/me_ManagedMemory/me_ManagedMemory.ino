@@ -2,17 +2,16 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-26
+  Last mod.: 2025-08-27
 */
 
 #include <me_ManagedMemory.h>
 
 #include <me_BaseTypes.h>
 #include <me_Console.h>
-#include <me_MemorySegment.h>
 
 void PrintWrappings(
-  me_MemorySegment::TMemorySegment Seg
+  TAddressSegment Seg
 )
 {
   Console.Write("(");

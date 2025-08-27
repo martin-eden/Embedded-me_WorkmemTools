@@ -2,15 +2,15 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-12-20
+  Last mod.: 2025-08-27
 */
 
 #include <me_ManagedMemory.h>
 
-using namespace me_ManagedMemory;
+#include <me_BaseTypes.h>
+#include <me_MemorySegment.h>
 
-using
-  me_MemorySegment::TMemorySegment;
+using namespace me_ManagedMemory;
 
 /*
   Destructor
@@ -29,7 +29,7 @@ TManagedMemory::~TManagedMemory()
   Here we're returning data span for processing. We hope they
   won't call free() on it.
 */
-TMemorySegment TManagedMemory::GetData()
+TAddressSegment TManagedMemory::GetData()
 {
   return DataSeg;
 }
@@ -59,7 +59,7 @@ TBool TManagedMemory::ResizeTo(
     me_MemorySegment::Freetown::CopyMemTo,
     me_MemorySegment::Freetown::Release;
 
-  TMemorySegment NewSeg;
+  TAddressSegment NewSeg;
 
   if (!Reserve(&NewSeg, NewSize))
     return false;
@@ -87,7 +87,7 @@ void TManagedMemory::Release()
   Load from memory segment
 */
 TBool TManagedMemory::LoadFrom(
-  TMemorySegment Src
+  TAddressSegment Src
 )
 {
   using

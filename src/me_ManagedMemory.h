@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2024-12-20
+  Last mod.: 2025-08-27
 */
 
 /*
@@ -14,7 +14,6 @@
 #pragma once
 
 #include <me_BaseTypes.h>
-#include <me_MemorySegment.h>
 
 namespace me_ManagedMemory
 {
@@ -28,7 +27,7 @@ namespace me_ManagedMemory
       ~TManagedMemory();
 
       // Return data segment
-      me_MemorySegment::TMemorySegment GetData();
+      TAddressSegment GetData();
 
       // Return data segment size
       TUint_2 GetSize();
@@ -38,14 +37,14 @@ namespace me_ManagedMemory
       void Release();
 
       // Load from arbitrary span
-      TBool LoadFrom(me_MemorySegment::TMemorySegment SrcSeg);
+      TBool LoadFrom(TAddressSegment SrcSeg);
       // Load from ASCIIZ
       TBool LoadFrom(const TAsciiz Asciiz);
       // Load from our specie
       TBool LoadFrom(TManagedMemory * Src);
 
     private:
-      me_MemorySegment::TMemorySegment DataSeg;
+      TAddressSegment DataSeg;
   };
 }
 
