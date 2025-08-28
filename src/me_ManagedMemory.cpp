@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-27
+  Last mod.: 2025-08-29
 */
 
 #include <me_ManagedMemory.h>
@@ -108,11 +108,8 @@ TBool TManagedMemory::LoadFrom(
   const TAsciiz Asciiz
 )
 {
-  using
-    me_MemorySegment::Freetown::FromAsciiz;
-
   // Cast ASCIIZ to memseg and load
-  return LoadFrom(FromAsciiz(Asciiz));
+  return LoadFrom(me_MemorySegment::FromAsciiz(Asciiz));
 }
 
 /*
@@ -127,7 +124,5 @@ TBool TManagedMemory::LoadFrom(
 }
 
 /*
-  2024-06 # # #
-  2024-07 #
-  2024-10 # # #
+  2024 # # # # # # #
 */
