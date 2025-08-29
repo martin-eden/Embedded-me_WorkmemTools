@@ -8,9 +8,9 @@
 #include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
-#include <me_StreamTools.h>
-#include <me_WorkMemory.h>
 #include <me_MemorySegment.h>
+#include <me_StreamTools.h>
+#include <me_StreamsCollection.h>
 
 #include <stdlib.h> // malloc(), free()
 
@@ -24,7 +24,7 @@ void me_WorkmemTools::ZeroMem(
 )
 {
   me_StreamTools::TZeroesInputStream ZeroesInputStream;
-  me_WorkMemory::TOutputStream OutputStream;
+  me_StreamsCollection::TWorkmemOutputStream OutputStream;
 
   if (!OutputStream.Init(MemSeg))
     return;
@@ -40,8 +40,8 @@ void me_WorkmemTools::CopyMemTo(
   TAddressSegment Src
 )
 {
-  me_WorkMemory::TInputStream InputStream;
-  me_WorkMemory::TOutputStream OutputStream;
+  me_StreamsCollection::TWorkmemInputStream InputStream;
+  me_StreamsCollection::TWorkmemOutputStream OutputStream;
 
   if (!InputStream.Init(Src))
     return;
@@ -68,8 +68,8 @@ TBool me_WorkmemTools::AreEqual(
   TAddressSegment B_Seg
 )
 {
-  me_WorkMemory::TInputStream A_Stream;
-  me_WorkMemory::TInputStream B_Stream;
+  me_StreamsCollection::TWorkmemInputStream A_Stream;
+  me_StreamsCollection::TWorkmemInputStream B_Stream;
 
   if (!A_Stream.Init(A_Seg))
     return false;
