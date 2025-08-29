@@ -5,12 +5,12 @@
   Last mod.: 2025-08-29
 */
 
-#include <me_ManagedMemory.h>
+#include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
 #include <me_MemorySegment.h>
 
-using namespace me_ManagedMemory;
+using namespace me_WorkmemTools;
 
 /*
   Destructor
@@ -54,19 +54,14 @@ TBool TManagedMemory::ResizeTo(
   TUint_2 NewSize
 )
 {
-  using
-    me_MemorySegment::Freetown::Reserve,
-    me_MemorySegment::Freetown::CopyMemTo,
-    me_MemorySegment::Freetown::Release;
-
   TAddressSegment NewSeg;
 
-  if (!Reserve(&NewSeg, NewSize))
+  if (!me_WorkmemTools::Reserve(&NewSeg, NewSize))
     return false;
 
-  CopyMemTo(NewSeg, DataSeg);
+  me_WorkmemTools::CopyMemTo(NewSeg, DataSeg);
 
-  Release(&DataSeg);
+  me_WorkmemTools::Release(&DataSeg);
 
   DataSeg = NewSeg;
 
@@ -90,13 +85,10 @@ TBool TManagedMemory::LoadFrom(
   TAddressSegment Src
 )
 {
-  using
-    me_MemorySegment::Freetown::CopyMemTo;
-
   if (!ResizeTo(Src.Size))
     return false;
 
-  CopyMemTo(DataSeg, Src);
+  me_WorkmemTools::CopyMemTo(DataSeg, Src);
 
   return true;
 }
@@ -125,4 +117,5 @@ TBool TManagedMemory::LoadFrom(
 
 /*
   2024 # # # # # # #
+  2025-08-29
 */

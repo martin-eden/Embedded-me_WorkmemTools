@@ -1,30 +1,14 @@
 # What
 
-(2024-06, 2024-10)
+(2024, 2025 WIP)
 
-Managing memory segment in dynamic memory. Arduino library.
-
-## Design
-
-It's resizable memory segment in heap memory.
-
-It can load data and return data segment. If fills memory with
-zeroes after allocation and before deallocation.
-
-Deallocation is hardwired to class destructor. So be careful
-not to pass copy of instance by accident. Memory span in this case
-will be the same and the first destructor will zero that memory.
-
-From the other hand, it's useful for creating copies of any
-binary data or ASCIIZ in dynamic memory and not worrying about
-releasing their memory. Memory will be released when class instance
-leave syntax scope.
+Tools to work with data in RAM.
 
 
 ## Sample output
 
 ```
-[me_ManagedMemory] test
+[me_WorkmemTools] test
 
   This library manages heap span.
 
@@ -38,16 +22,14 @@ leave syntax scope.
   (Addr 00586 Size 00003 )
   (Addr 00591 Size 00005 )
   (Addr 00586 Size 00002 )
-[me_ManagedMemory] Done.
+[me_WorkmemTools] Done.
 
 ```
 
 ## Code
 
 * [Interface][Interface]
-* Implementation
-  * [Class][TManagedMemory]
-  * [Freetown][Freetown]
+* [Implementation][Implementation]
 * [Example][Example]
 
 
@@ -76,10 +58,9 @@ arduino-cli compile --fqbn arduino:avr:uno --quiet --warnings all . --build-prop
 * [My other repositories][Repos]
 
 
-[Interface]: src/me_ManagedMemory.h
-[TManagedMemory]: src/TManagedMemory.cpp
-[Freetown]: src/me_ManagedMemory_Freetown.cpp
-[Example]: examples/me_ManagedMemory/me_ManagedMemory.ino
+[Interface]: src/me_WorkmemTools.h
+[Implementation]: src/
+[Example]: examples/me_WorkmemTools/me_WorkmemTools.ino
 
 [GetLibs]: https://github.com/martin-eden/Embedded-Framework-GetLibs
 

@@ -1,24 +1,20 @@
-// Management of memory segment in dynamic memory
+// Tools for work memory (SRAM)
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-27
-*/
-
-/*
-  Central part of this module is allocated memory segment.
-
-  It manages memory, and guarantees it will release it upon death.
+  Last mod.: 2025-08-29
 */
 
 #pragma once
 
 #include <me_BaseTypes.h>
 
-namespace me_ManagedMemory
+namespace me_WorkmemTools
 {
   /*
     Allocated memory segment
+
+    It manages memory, and guarantees it will release it upon death.
   */
   class TManagedMemory
   {
@@ -46,10 +42,23 @@ namespace me_ManagedMemory
     private:
       TAddressSegment DataSeg;
   };
+
+  // Fill memory span with zero byte
+  void ZeroMem(TAddressSegment MemSeg);
+
+  // Copy data to another segment
+  void CopyMemTo(TAddressSegment Dest, TAddressSegment Src);
+
+  // Data equality check
+  TBool AreEqual(TAddressSegment A, TAddressSegment B);
+
+  // Reserve block of memory. Zeroes after allocation
+  TBool Reserve(TAddressSegment * MemSeg, TUint_2 Size);
+
+  // Release block of memory. Zeroes before release
+  void Release(TAddressSegment * MemSeg);
 }
 
 /*
-  2024-06 # # #
-  2024-07 #
-  2024-10 # #
+  2024 # # # # # #
 */

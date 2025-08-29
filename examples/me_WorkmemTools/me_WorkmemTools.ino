@@ -1,11 +1,11 @@
-// [me_ManagedMemory] test/demo
+// [me_WorkmemTools] test
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-27
+  Last mod.: 2025-08-29
 */
 
-#include <me_ManagedMemory.h>
+#include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
 #include <me_Console.h>
@@ -26,7 +26,7 @@ void PrintWrappings(
 void RunTest()
 {
   using
-    me_ManagedMemory::TManagedMemory;
+    me_WorkmemTools::TManagedMemory;
 
   TManagedMemory Chunk;
 
@@ -57,11 +57,11 @@ void setup()
 {
   Console.Init();
 
-  Console.Print("[me_ManagedMemory] test");
+  Console.Print("[me_WorkmemTools] test");
   Console.Indent();
   RunTest();
   Console.Unindent();
-  Console.Print("[me_ManagedMemory] Done.");
+  Console.Print("[me_WorkmemTools] Done.");
 }
 
 void loop()
@@ -71,4 +71,5 @@ void loop()
 /*
   2024-06 # # # # # #
   2025-08-26
+  2025-08-29
 */
