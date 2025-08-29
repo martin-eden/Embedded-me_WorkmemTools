@@ -8,7 +8,6 @@
 #include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
-#include <me_MemorySegment.h>
 
 using namespace me_WorkmemTools;
 
@@ -101,7 +100,7 @@ TBool TManagedMemory::LoadFrom(
 )
 {
   // Cast ASCIIZ to memseg and load
-  return LoadFrom(me_MemorySegment::FromAsciiz(Asciiz));
+  return LoadFrom(FromAsciiz(Asciiz));
 }
 
 /*

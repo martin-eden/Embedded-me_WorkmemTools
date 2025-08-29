@@ -10,58 +10,164 @@
 #include <me_BaseTypes.h>
 #include <me_Console.h>
 
+#include <me_StreamsCollection.h>
+
 void PrintWrappings(
-  TAddressSegment Seg
+  TAddressSegment AddrSeg
 )
 {
-  Console.Write("(");
-  Console.Write("Addr");
-  Console.Print(Seg.Addr);
-  Console.Write("Size");
-  Console.Print(Seg.Size);
+  Console.Write("Addr (");
+  Console.Print(AddrSeg.Addr);
   Console.Write(")");
+
+  Console.Write(" ");
+
+  Console.Write("Size (");
+  Console.Print(AddrSeg.Size);
+  Console.Write(")");
+
   Console.EndLine();
 }
 
-void RunTest()
+void PrintRawContents(
+  TAddressSegment AddrSeg
+)
 {
-  using
-    me_WorkmemTools::TManagedMemory;
+  Console.Write("Contents ( ");
+  Console.Write(AddrSeg);
+  Console.Write(" )");
 
-  TManagedMemory Chunk;
+  Console.EndLine();
+}
+
+/*
+  Print contents using byte iterator
+*/
+void PrintByteContents(
+  TAddressSegment AddrSeg
+)
+{
+  me_StreamsCollection::TWorkmemInputStream SegStream;
+  TUnit Unit;
+
+  if (!SegStream.Init(AddrSeg))
+  {
+    Console.Print("Failed to setup input stream");
+    return;
+  }
+
+  Console.Write("Byte-Contents (");
+
+  while (SegStream.Read(&Unit))
+    Console.Print(Unit);
+
+  Console.Write(" )");
+
+  Console.EndLine();
+}
+
+void PrintSegmentDetails(
+  TAsciiz Header,
+  TAddressSegment AddrSeg
+)
+{
+  Console.Print(Header);
+
+  Console.Indent();
+
+  PrintWrappings(AddrSeg);
+  PrintRawContents(AddrSeg);
+  PrintByteContents(AddrSeg);
+
+  Console.Unindent();
+}
+
+void TestAsciiz()
+{
+  TAddressSegment AddrSeg;
+
+  /*
+    FromAsciiz(): Treat ASCIIZ as memory segment
+
+    Returned segment does not include zero byte.
+  */
+  AddrSeg = me_WorkmemTools::FromAsciiz("ABC");
+
+  PrintSegmentDetails("FromAsciiz", AddrSeg);
+}
+
+void TestMemoryAllocator()
+{
+  TAddressSegment SourceData = me_WorkmemTools::FromAsciiz("DATA");
+  TAddressSegment DestData;
+
+  Console.Print("( Reserve CopyMemTo Release )");
+  Console.Indent();
+
+  /*
+    Reserve(): Allocate memory and zero data
+  */
+  if (!me_WorkmemTools::Reserve(&DestData, SourceData.Size))
+  {
+    Console.Print("No memory for temporary data");
+    return;
+  }
+
+  PrintSegmentDetails("Reserve", DestData);
+
+  /*
+    CopyMemTo(): Copy data to another segment
+  */
+  me_WorkmemTools::CopyMemTo(DestData, SourceData);
+
+  PrintSegmentDetails("CopyMemTo", DestData);
+
+  /*
+    Release(): Deallocate memory and zero data
+  */
+  me_WorkmemTools::Release(&DestData);
+
+  PrintSegmentDetails("Release", DestData);
+
+  Console.Unindent();
+}
+
+void TestManagedMemory()
+{
+  me_WorkmemTools::TManagedMemory Chunk;
 
   Console.Print("");
 
-  Console.Print("This library manages heap span.");
+  Console.Print("Testing data chunk in heap");
   Console.Print("");
-  Console.Print("Class manages loading data and resizing.");
-  Console.Print("");
-  Console.Print("In this example we'll use one instance with different");
-  Console.Print("values. Idea is to demonstrate that memory span for data");
-  Console.Print("is reused.");
+  Console.Print("Idea is to demonstrate that data address is reused.");
   Console.Print("");
 
-  PrintWrappings(Chunk.GetData());
+  PrintSegmentDetails("Current data", Chunk.GetData());
 
   Chunk.LoadFrom("ABC");
-  PrintWrappings(Chunk.GetData());
+  PrintSegmentDetails("Current data", Chunk.GetData());
 
   Chunk.LoadFrom("12345");
-  PrintWrappings(Chunk.GetData());
+  PrintSegmentDetails("Current data", Chunk.GetData());
 
   Chunk.LoadFrom("ab");
-  PrintWrappings(Chunk.GetData());
+  PrintSegmentDetails("Current data", Chunk.GetData());
 }
 
 void setup()
 {
   Console.Init();
 
-  Console.Print("[me_WorkmemTools] test");
+  Console.Print("( [me_WorkmemTools] test");
   Console.Indent();
-  RunTest();
+
+  TestAsciiz();
+  TestMemoryAllocator();
+  TestManagedMemory();
+
   Console.Unindent();
-  Console.Print("[me_WorkmemTools] Done.");
+  Console.Print(") Done");
 }
 
 void loop()

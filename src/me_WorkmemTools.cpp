@@ -8,6 +8,8 @@
 #include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
+
+#include <me_Asciiz.h>
 #include <me_MemorySegment.h>
 #include <me_StreamTools.h>
 #include <me_StreamsCollection.h>
@@ -15,6 +17,23 @@
 #include <stdlib.h> // malloc(), free()
 
 using namespace me_WorkmemTools;
+
+/*
+  Represent ASCII structure as memory segment
+
+  Zero byte is not counted.
+*/
+TAddressSegment me_WorkmemTools::FromAsciiz(
+  TAsciiz Asciiz
+)
+{
+  TAddressSegment Result;
+
+  Result.Addr = (TAddress) Asciiz;
+  me_Asciiz::GetLength_Workmem(&Result.Size, Asciiz);
+
+  return Result;
+}
 
 /*
   Fill memory span with zero byte
