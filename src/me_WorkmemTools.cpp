@@ -26,14 +26,24 @@ TAddressSegment me_WorkmemTools::FromAsciiz(
   TAsciiz Asciiz
 )
 {
+  /*
+    We'll create address segment from current address till
+    imaginary memory end. We'll create read stream from that
+    segment. We'll read from that stream and count items.
+    We'll fail when read fails or read item is zero (aka NUL).
+
+    We'll set .Size to number of items read.
+  */
+
   me_StreamsCollection::TWorkmemInputStream InputStream;
-  TAddressSegment MemSeg;
+  TAddressSegment AddrSeg;
   TUnit Unit;
   TSize NumUnitsRead = 0;
 
-  MemSeg = { .Addr = (TAddress) Asciiz, .Size = TSize_Max };
+  AddrSeg.Addr = (TAddress) Asciiz;
+  AddrSeg.Size = TSize_Max - AddrSeg.Addr + 1;
 
-  InputStream.Init(MemSeg);
+  InputStream.Init(AddrSeg);
 
   while (InputStream.Read(&Unit))
   {
@@ -43,9 +53,9 @@ TAddressSegment me_WorkmemTools::FromAsciiz(
     ++NumUnitsRead;
   }
 
-  MemSeg.Size = NumUnitsRead;
+  AddrSeg.Size = NumUnitsRead;
 
-  return MemSeg;
+  return AddrSeg;
 }
 
 /*
