@@ -2,14 +2,13 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-29
+  Last mod.: 2025-08-30
 */
 
 #include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
 
-#include <me_Asciiz.h>
 #include <me_MemorySegment.h>
 #include <me_StreamTools.h>
 #include <me_StreamsCollection.h>
@@ -27,12 +26,26 @@ TAddressSegment me_WorkmemTools::FromAsciiz(
   TAsciiz Asciiz
 )
 {
-  TAddressSegment Result;
+  me_StreamsCollection::TWorkmemInputStream InputStream;
+  TAddressSegment MemSeg;
+  TUnit Unit;
+  TSize NumUnitsRead = 0;
 
-  Result.Addr = (TAddress) Asciiz;
-  me_Asciiz::GetLength_Workmem(&Result.Size, Asciiz);
+  MemSeg = { .Addr = (TAddress) Asciiz, .Size = TSize_Max };
 
-  return Result;
+  InputStream.Init(MemSeg);
+
+  while (InputStream.Read(&Unit))
+  {
+    if (Unit == 0)
+      break;
+
+    ++NumUnitsRead;
+  }
+
+  MemSeg.Size = NumUnitsRead;
+
+  return MemSeg;
 }
 
 /*
@@ -150,4 +163,5 @@ void me_WorkmemTools::Release(
   2025-08-24
   2025-08-26
   2025-08-29
+  2025-08-30
 */
