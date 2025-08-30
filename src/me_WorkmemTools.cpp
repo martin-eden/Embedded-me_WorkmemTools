@@ -9,7 +9,7 @@
 
 #include <me_BaseTypes.h>
 
-#include <me_MemorySegment.h>
+#include <me_AddrsegTools.h>
 #include <me_StreamTools.h>
 #include <me_StreamsCollection.h>
 
@@ -158,14 +158,14 @@ void me_WorkmemTools::Release(
   TAddressSegment * MemSeg
 )
 {
-  if (!me_MemorySegment::IsValid(*MemSeg))
+  if (!me_AddrsegTools::IsValid(*MemSeg))
     return;
 
   ZeroMem(*MemSeg);
 
   free((void *) MemSeg->Addr);
 
-  me_MemorySegment::Invalidate(MemSeg);
+  me_AddrsegTools::Invalidate(MemSeg);
 }
 
 /*
