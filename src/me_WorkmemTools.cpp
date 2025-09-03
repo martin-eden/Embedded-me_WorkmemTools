@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-30
+  Last mod.: 2025-09-03
 */
 
 #include <me_WorkmemTools.h>
@@ -28,29 +28,31 @@ TAddressSegment me_WorkmemTools::FromAsciiz(
 {
   /*
     We'll create address segment from current address till
-    imaginary memory end. We'll create read stream from that
-    segment. We'll read from that stream and count items.
-    We'll fail when read fails or read item is zero (aka NUL).
+    imaginary memory end. We'll create read stream on that
+    segment. We'll read from that stream and count units.
+    We'll fail when read fails or unit read is zero (aka NUL).
 
-    We'll set .Size to number of items read.
+    We'll set .Size to number of units read.
   */
 
   me_StreamsCollection::TWorkmemInputStream InputStream;
   TAddressSegment AddrSeg;
+  TSize NumUnitsRead;
   TUnit Unit;
-  TSize NumUnitsRead = 0;
 
   AddrSeg.Addr = (TAddress) Asciiz;
   AddrSeg.Size = TSize_Max - AddrSeg.Addr + 1;
 
   InputStream.Init(AddrSeg);
 
+  NumUnitsRead = 0;
+
   while (InputStream.Read(&Unit))
   {
     if (Unit == 0)
       break;
 
-    ++NumUnitsRead;
+    NumUnitsRead = NumUnitsRead + 1;
   }
 
   AddrSeg.Size = NumUnitsRead;
