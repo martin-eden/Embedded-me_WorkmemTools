@@ -2,43 +2,14 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-29
+  Last mod.: 2025-09-19
 */
 
 #include <me_WorkmemTools.h>
 
 #include <me_BaseTypes.h>
 #include <me_Console.h>
-
-#include <me_StreamsCollection.h>
-
-void PrintWrappings(
-  TAddressSegment AddrSeg
-)
-{
-  Console.Write("Addr (");
-  Console.Print(AddrSeg.Addr);
-  Console.Write(")");
-
-  Console.Write(" ");
-
-  Console.Write("Size (");
-  Console.Print(AddrSeg.Size);
-  Console.Write(")");
-
-  Console.EndLine();
-}
-
-void PrintRawContents(
-  TAddressSegment AddrSeg
-)
-{
-  Console.Write("Contents ( ");
-  Console.Write(AddrSeg);
-  Console.Write(" )");
-
-  Console.EndLine();
-}
+#include <me_DebugPrints.h>
 
 /*
   Print contents using byte iterator
@@ -47,21 +18,16 @@ void PrintByteContents(
   TAddressSegment AddrSeg
 )
 {
-  me_StreamsCollection::TWorkmemInputStream SegStream;
-  TUnit Unit;
+  me_DebugPrints::PrintMemsegData("Byte-Contents", AddrSeg);
+}
 
-  if (!SegStream.Init(AddrSeg))
-  {
-    Console.Print("Failed to setup input stream");
-    return;
-  }
-
-  Console.Write("Byte-Contents (");
-
-  while (SegStream.Read(&Unit))
-    Console.Print(Unit);
-
-  Console.Write(" )");
+void PrintRawContents(
+  TAddressSegment AddrSeg
+)
+{
+  Console.Write("Raw-Contents (");
+  Console.Write(AddrSeg);
+  Console.Write(")");
 
   Console.EndLine();
 }
@@ -75,7 +41,7 @@ void PrintSegmentDetails(
 
   Console.Indent();
 
-  PrintWrappings(AddrSeg);
+  me_DebugPrints::PrintAddrseg("Segment", AddrSeg);
   PrintRawContents(AddrSeg);
   PrintByteContents(AddrSeg);
 
@@ -178,4 +144,5 @@ void loop()
   2024-06 # # # # # #
   2025-08-26
   2025-08-29
+  2025-09-19
 */
