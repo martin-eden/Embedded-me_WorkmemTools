@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-09-03
+  Last mod.: 2025-10-14
 */
 
 #include <me_WorkmemTools.h>
@@ -73,7 +73,7 @@ void me_WorkmemTools::ZeroMem(
   if (!OutputStream.Init(MemSeg))
     return;
 
-  me_StreamTools::CopyStreamTo(&ZeroesInputStream, &OutputStream);
+  me_StreamTools::SaveStreamTo(&ZeroesInputStream, &OutputStream);
 }
 
 /*
@@ -93,7 +93,7 @@ void me_WorkmemTools::CopyMemTo(
   if (!OutputStream.Init(Dest))
     return;
 
-  me_StreamTools::CopyStreamTo(&InputStream, &OutputStream);
+  me_StreamTools::SaveStreamTo(&InputStream, &OutputStream);
 }
 
 /*
