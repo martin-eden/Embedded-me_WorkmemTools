@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-09-19
+  Last mod.: 2026-03-17
 */
 
 #include <me_WorkmemTools.h>
@@ -98,29 +98,6 @@ void TestMemoryAllocator()
   Console.Unindent();
 }
 
-void TestManagedMemory()
-{
-  me_WorkmemTools::TManagedMemory Chunk;
-
-  Console.Print("");
-
-  Console.Print("Testing data chunk in heap");
-  Console.Print("");
-  Console.Print("Idea is to demonstrate that data address is reused.");
-  Console.Print("");
-
-  PrintSegmentDetails("Current data", Chunk.GetData());
-
-  Chunk.LoadFrom("ABC");
-  PrintSegmentDetails("Current data", Chunk.GetData());
-
-  Chunk.LoadFrom("12345");
-  PrintSegmentDetails("Current data", Chunk.GetData());
-
-  Chunk.LoadFrom("ab");
-  PrintSegmentDetails("Current data", Chunk.GetData());
-}
-
 void setup()
 {
   Console.Init();
@@ -130,7 +107,6 @@ void setup()
 
   TestAsciiz();
   TestMemoryAllocator();
-  TestManagedMemory();
 
   Console.Unindent();
   Console.Print(") Done");
@@ -141,8 +117,7 @@ void loop()
 }
 
 /*
-  2024-06 # # # # # #
-  2025-08-26
-  2025-08-29
-  2025-09-19
+  2024 # # # # # #
+  2025 # # #
+  2026-03-17
 */

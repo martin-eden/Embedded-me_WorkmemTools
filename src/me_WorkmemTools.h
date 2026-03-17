@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-29
+  Last mod.: 2026-03-17
 */
 
 #pragma once
@@ -28,41 +28,10 @@ namespace me_WorkmemTools
 
   // Release block of memory. Zeroes before release
   void Release(TAddressSegment * MemSeg);
-
-  /*
-    Allocated memory segment
-
-    It manages memory, and guarantees it will release it upon death.
-  */
-  class TManagedMemory
-  {
-    public:
-      // Freeing destructor
-      ~TManagedMemory();
-
-      // Return data segment
-      TAddressSegment GetData();
-
-      // Return data segment size
-      TUint_2 GetSize();
-      // Resize data segment
-      TBool ResizeTo(TUint_2 NewSize);
-      // [Handy] Release data segment
-      void Release();
-
-      // Load from arbitrary span
-      TBool LoadFrom(TAddressSegment SrcSeg);
-      // Load from ASCIIZ
-      TBool LoadFrom(const TAsciiz Asciiz);
-      // Load from our specie
-      TBool LoadFrom(TManagedMemory * Src);
-
-    private:
-      TAddressSegment DataSeg;
-  };
 }
 
 /*
   2024 # # # # # #
   2025-08-29
+  2026-03-17
 */
