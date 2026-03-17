@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-08-29
+  Last mod.: 2026-03-17
 */
 
 #include <me_WorkmemTools.h>
@@ -69,12 +69,10 @@ TBool TManagedMemory::ResizeTo(
 
 /*
   Free data segment memory
-
-  We're just resizing to zero.
 */
 void TManagedMemory::Release()
 {
-  ResizeTo(0);
+  me_WorkmemTools::Release(&DataSeg);
 }
 
 /*
@@ -117,4 +115,5 @@ TBool TManagedMemory::LoadFrom(
 /*
   2024 # # # # # # #
   2025-08-29
+  2026-03-17
 */
