@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-14
+  Last mod.: 2026-04-02
 */
 
 #include <me_WorkmemTools.h>
@@ -12,6 +12,7 @@
 #include <me_AddrsegTools.h>
 #include <me_StreamTools.h>
 #include <me_StreamsCollection.h>
+#include <me_WorkMemory.h>
 
 #include <stdlib.h> // malloc(), free()
 
@@ -41,7 +42,7 @@ TAddressSegment me_WorkmemTools::FromAsciiz(
   TUnit Unit;
 
   AddrSeg.Addr = (TAddress) Asciiz;
-  AddrSeg.Size = TSize_Max - AddrSeg.Addr + 1;
+  AddrSeg.Size = me_WorkMemory::Description::MaxAddress - AddrSeg.Addr + 1;
 
   InputStream.Init(AddrSeg);
 
@@ -172,8 +173,6 @@ void me_WorkmemTools::Release(
 
 /*
   2024 # # # # # # # # # # #
-  2025-08-24
-  2025-08-26
-  2025-08-29
-  2025-08-30
+  2025 # # # #
+  2026-04-02
 */
