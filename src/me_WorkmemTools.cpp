@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2026-04-02
+  Last mod.: 2026-04-11
 */
 
 #include <me_WorkmemTools.h>
@@ -68,7 +68,7 @@ void me_WorkmemTools::ZeroMem(
   TAddressSegment MemSeg
 )
 {
-  me_StreamTools::TZeroesInputStream ZeroesInputStream;
+  me_StreamsCollection::TZeroesInputStream ZeroesInputStream;
   me_StreamsCollection::TWorkmemOutputStream OutputStream;
 
   if (!OutputStream.Init(MemSeg))
